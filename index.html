@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			@font-face {
+				font-family: "JasonHandwriting1-Regular";
+				src: url(https://cdn.jsdelivr.net/gh/max32002/JasonHandWritingFonts@20220828/webfont/JasonHandwriting1-Regular.woff2)
+					format("woff2");
+			}
+			html {
+				background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='2' fill='%23eeeeee'/%3E%3C/svg%3E");
+				font-family: "JasonHandwriting1-Regular";
+			}
+
+			body {
+				padding: 0;
+				margin: 0;
+				overflow: hidden;
+				width: 100vw;
+				height: 100vh;
+				/* background-image: url("./bg-memory.jpg");
+				background-size: cover; */
+			}
+
+			/* .bg-filter {
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100vw;
+				height: 100vh;
+				background-color: rgba(255, 255, 255, 0.4);
+				-webkit-backdrop-filter: blur(5px);
+				backdrop-filter: blur(10px);
+			} */
+			.photo {
+				display: flex;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+					rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+			}
+
+			.photo .initial {
+				background-position: 50% 50%;
+				background-size: cover;
+				width: 20%;
+				height: 100%;
+				transition: all 0.3s;
+				filter: grayscale(0.8);
+			}
+
+			.photo .initial.show,
+			.photo .initial:hover {
+				width: 400%;
+				filter: grayscale(0);
+			}
+
+			.container {
+				position: absolute;
+				top: 80%;
+				right: 5%;
+        transform: translateY(-50%);
+				width: 600px;
+				height: 450px;
+				border-radius: 8px;
+				font-weight: 500;
+				font-size: 28px;
+				padding: 1rem;
+			}
+
+			.container .letters {
+				margin-bottom: 0.5rem;
+				opacity: 0;
+				color: white;
+				text-shadow: 1px 5px 10px rgb(82, 82, 91);
+				transition: opacity 2s;
+			}
+
+			.container .letters.show {
+				opacity: 1;
+			}
+
+			.letters.align-right {
+				text-align: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="bg-filter"></div>
+		<div class="photo">
+			<div
+				style="
+					background-image: url('https://xinyue-v20v.oss-cn-hangzhou.aliyuncs.com/coverImg/v_3_2/image-shoot/e5c82ac2ecea6002b03690371726f393-44f9fc586fd3fc970af9d76b9f9eb4ce.png');
+				"
+				class="initial"
+			></div>
+			<div
+				style="
+					background-image: url('https://xinyue-v20v.oss-cn-hangzhou.aliyuncs.com/coverImg/image/d99d2c926a8b8b90d4b4ffc1fe396a25-0335a6d80db91286bdb89b927036d5c0.jpg');
+				"
+				class="initial"
+			></div>
+			<div
+				style="
+					background-image: url('https://xinyue-v20v.oss-cn-hangzhou.aliyuncs.com/coverImg/v_3_2/image-shoot/e5c82ac2ecea6002b03690371726f393-44f9fc586fd3fc970af9d76b9f9eb4ce.png');
+				"
+				class="initial"
+			></div>
+			<div
+				style="
+					background-image: url('https://xinyue-v20v.oss-cn-hangzhou.aliyuncs.com/coverImg/image/d99d2c926a8b8b90d4b4ffc1fe396a25-0335a6d80db91286bdb89b927036d5c0.jpg');
+				"
+				class="initial"
+			></div>
+			<div
+				style="
+					background-image: url('https://xinyue-v20v.oss-cn-hangzhou.aliyuncs.com/coverImg/v_3_2/image-shoot/e5c82ac2ecea6002b03690371726f393-44f9fc586fd3fc970af9d76b9f9eb4ce.png');
+				"
+				class="initial"
+			></div>
+			<div
+				style="
+					background-image: url('https://xinyue-v20v.oss-cn-hangzhou.aliyuncs.com/coverImg/image/d99d2c926a8b8b90d4b4ffc1fe396a25-0335a6d80db91286bdb89b927036d5c0.jpg');
+				"
+				class="initial"
+			></div>
+		</div>
+		<div class="container" id="poem"></div>
+
+		<script>
+			var poem = [
+				"感谢在这被多巴胺颜色包裹的夏日浓情氛围里",
+				"那些许透露着悲伤底色的情绪",
+        "随着对生命的热情似火而化为一缕青烟",
+				"告别,是为了更好的体验",
+				"愿你我在未来的旅途中,皆有勇气突破西西弗斯般永无止境的桎梏",
+				"以梦为马,不负韶华.以梦作画,不负繁花",
+				"- C.AI",
+			];
+
+			// 获取显示诗词的元素
+			var poemElement = document.getElementById("poem");
+
+			// 控制展示的速度，这里设置为每2秒展示一行
+			var interval = 2000;
+
+			const list = Array.from(document.querySelectorAll(".initial"));
+			list.forEach((el, index) => {
+				setTimeout(function () {
+					// console.log()
+					if (list[index - 1]) {
+						list[index - 1].classList.remove("show");
+					}
+					el.classList.add("show");
+					if (index === list.length - 1) {
+						setTimeout(() => {
+							el.classList.remove("show");
+						}, interval);
+					}
+				}, interval * (index + 1));
+			});
+			// 遍历诗词的每一行
+			poem.forEach(function (line, index) {
+				// 创建一个新的元素来显示这一行
+				var lineElement = document.createElement("div");
+				lineElement.className = "letters";
+				lineElement.textContent = line;
+				if (index === poem.length - 1) {
+					lineElement.className = "letters align-right";
+				}
+				// 将这一行添加到诗词元素中
+				poemElement.appendChild(lineElement);
+
+				// 设置一个定时器，在指定的时间后展示这一行
+				setTimeout(function () {
+					lineElement.classList.add("show");
+				}, interval * (index + 1));
+			});
+		</script>
+	</body>
+</html>
